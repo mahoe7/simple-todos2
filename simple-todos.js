@@ -1,7 +1,4 @@
-
-
 Tasks = new Mongo.Collection("tasks");
-
 
 
 if (Meteor.isClient) {
@@ -51,11 +48,9 @@ if (Meteor.isClient) {
       event.preventDefault();
 
 
-
       // Get value from form element
 
       var text = event.target.text.value;
-
 
 
       // Insert a task into the collection
@@ -63,11 +58,10 @@ if (Meteor.isClient) {
       Tasks.insert({
 
         text: text,
-
-        createdAt: new Date() // current time
-
+        createdAt: new Date(), // current time
+        owner: Meteor.userId(),
+        username: Meteor.user().username
       });
-
 
 
       // Clear form
@@ -92,7 +86,7 @@ if (Meteor.isClient) {
 
       Tasks.update(this._id, {
 
-        $set: {checked: ! this.checked}
+        $set: {checked: !this.checked}
 
       });
 
